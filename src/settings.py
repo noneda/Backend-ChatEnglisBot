@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'chatterbot.ext.django_chatterbot',
     'App',
     'rest_framework',
     'corsheaders',
@@ -131,3 +132,12 @@ REST_FRAMEWORK = {
 }
 
 CORS_ALLOW_ALL_ORIGINS= True
+
+CHATTERBOT = {
+    'name': 'Tech Support Bot',
+    'logic_adapters': [
+        'chatterbot.logic.MathematicalEvaluation',
+        'chatterbot.logic.TimeLogicAdapter',
+        'chatterbot.logic.BestMatch'
+    ]
+}
