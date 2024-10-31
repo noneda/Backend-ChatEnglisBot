@@ -3,4 +3,5 @@ from .views import *
 
 urlpatterns = [
     path('', rootData),
+    path('Bot/', botMessage)
 ]

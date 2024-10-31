@@ -20,3 +20,17 @@ def rootData(req):
 @api_view(['POST'])
 def botMessage(req):
     set = req.data.get('set')
+    if not set:
+        return Response({
+                "error" : "data don't found!!!", 
+            }, 
+            status=status.HTTP_400_BAD_REQUEST
+        );
+    
+    post = MessageBot(user_input = set)
+    post.save()
+    
+    get = MessageBotSerializer(post)
+    return Response(
+        get.data, status=status.HTTP_201_CREATED
+    )
