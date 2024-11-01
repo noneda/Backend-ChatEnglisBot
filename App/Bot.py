@@ -2,7 +2,7 @@ from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
 import nltk
-nltk.download('punkt_tab')
+nltk.download('Assistant')
 
 chat = ChatBot(
     'chatbot',
@@ -119,5 +119,7 @@ conversation_flow = {
     }
 }
 
-for key, conversations in conversation_flow.items():
-    trainer.train(conversations)
+if not chat.storage.filter():  # Verifica si la base de datos está vacía
+    trainer = ListTrainer(chat)
+    for key, conversations in conversation_flow.items():
+        trainer.train(conversations)

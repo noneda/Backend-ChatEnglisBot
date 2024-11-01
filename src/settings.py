@@ -134,10 +134,11 @@ REST_FRAMEWORK = {
 CORS_ALLOW_ALL_ORIGINS= True
 
 CHATTERBOT = {
-    'name': 'Tech Support Bot',
+    'name': 'Assistant',
+    'storage_adapter': 'chatterbot.storage.SQLStorageAdapter',
+    'database_uri': 'sqlite:///db.sqlite3',  # Puedes cambiarlo a otra base de datos si deseas
     'logic_adapters': [
-        'chatterbot.logic.MathematicalEvaluation',
-        'chatterbot.logic.TimeLogicAdapter',
-        'chatterbot.logic.BestMatch'
-    ]
+        'chatterbot.logic.BestMatch',
+    ],
+    'database': 'mydatabase.db',
 }
