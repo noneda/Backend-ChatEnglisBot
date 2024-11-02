@@ -1,4 +1,3 @@
-import re
 from chatterbot import ChatBot
 from chatterbot.trainers import ListTrainer
 
@@ -14,83 +13,111 @@ chat = ChatBot(
 )
 
 trainer = ListTrainer(chat)
-
 conversation_flow = {
     # Saludos y comienzo de conversación
-    "saludo": {
-        "patron": re.compile(r"\b(hola|buenos días|buenas tardes|qué tal)\b", re.IGNORECASE),
-        "respuesta": "¡Hola! 😊 Bienvenido/a al asistente de cursos de inglés. ¿Te gustaría mejorar tu nivel de inglés?"
-    },
+    "saludo": [
+        "Hola",
+        "¡Hola! 😊 Bienvenido/a al asistente de cursos de inglés. ¿Te gustaría mejorar tu nivel de inglés?",
+        "Buenos días",
+        "¡Hola! 😊 Bienvenido/a al asistente de cursos de inglés. ¿Te gustaría mejorar tu nivel de inglés?",
+        "¿Qué tal?",
+        "¡Hola! 😊 Bienvenido/a al asistente de cursos de inglés. ¿Te gustaría mejorar tu nivel de inglés?"
+    ],
 
     # Respuestas afirmativas al inicio
-    "respuesta_afirmativa": {
-        "patron": re.compile(r"\b(sí|claro|por supuesto|me gustaría)\b", re.IGNORECASE),
-        "respuesta": "¡Excelente! ¿Qué nivel de inglés tienes actualmente? (Principiante, Intermedio, Avanzado)"
-    },
+    "respuesta_afirmativa": [
+        "Sí, me gustaría.",
+        "¡Excelente! ¿Qué nivel de inglés tienes actualmente? (Principiante, Intermedio, Avanzado)",
+        "Claro, quiero mejorar mi inglés.",
+        "¡Excelente! ¿Qué nivel de inglés tienes actualmente? (Principiante, Intermedio, Avanzado)",
+        "Sí, por favor.",
+        "¡Excelente! ¿Qué nivel de inglés tienes actualmente? (Principiante, Intermedio, Avanzado)"
+    ],
 
     # Nivel Principiante
-    "nivel_principiante": {
-        "patron": re.compile(r"\b(principiante|nunca he estudiado inglés|nivel básico)\b", re.IGNORECASE),
-        "respuesta": "Tenemos un curso para empezar desde cero, aprenderás vocabulario básico, frases y gramática esencial. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
-    },
+    "nivel_principiante": [
+        "Soy principiante.",
+        "Tenemos un curso para empezar desde cero, aprenderás vocabulario básico, frases y gramática esencial. ¿Te gustaría conocer más sobre el contenido del curso y su duración?",
+        "Nunca he estudiado inglés.",
+        "Tenemos un curso para empezar desde cero, aprenderás vocabulario básico, frases y gramática esencial. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
+    ],
 
     # Respuesta sobre contenido y duración para nivel Principiante
-    "contenido_duracion_principiante": {
-        "patron": re.compile(r"\b(sí, por favor|cuéntame más|quiero saber más)\b", re.IGNORECASE),
-        "respuesta": "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
-    },
+    "contenido_duracion_principiante": [
+        "Sí, por favor.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?",
+        "Cuéntame más.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
+    ],
 
     # Nivel Intermedio
-    "nivel_intermedio": {
-        "patron": re.compile(r"\b(intermedio|he estudiado un poco|nivel medio)\b", re.IGNORECASE),
-        "respuesta": "Perfecto para mejorar tu fluidez, expandir vocabulario y ganar confianza en tus conversaciones. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
-    },
+    "nivel_intermedio": [
+        "Tengo un nivel intermedio.",
+        "Perfecto para mejorar tu fluidez, expandir vocabulario y ganar confianza en tus conversaciones. ¿Te gustaría conocer más sobre el contenido del curso y su duración?",
+        "He estudiado un poco.",
+        "Perfecto para mejorar tu fluidez, expandir vocabulario y ganar confianza en tus conversaciones. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
+    ],
 
     # Respuesta sobre contenido y duración para nivel Intermedio
-    "contenido_duracion_intermedio": {
-        "patron": re.compile(r"\b(sí, me interesa|cuéntame sobre el curso|quiero más detalles)\b", re.IGNORECASE),
-        "respuesta": "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
-    },
+    "contenido_duracion_intermedio": [
+        "Sí, me interesa.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?",
+        "Cuéntame sobre el curso.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
+    ],
 
     # Nivel Avanzado
-    "nivel_avanzado": {
-        "patron": re.compile(r"\b(avanzado|buen dominio|nivel alto)\b", re.IGNORECASE),
-        "respuesta": "Ideal para perfeccionar tu inglés y trabajar en la precisión gramatical, pronunciación y expresiones idiomáticas. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
-    },
+    "nivel_avanzado": [
+        "Estoy en un nivel avanzado.",
+        "Ideal para perfeccionar tu inglés y trabajar en la precisión gramatical, pronunciación y expresiones idiomáticas. ¿Te gustaría conocer más sobre el contenido del curso y su duración?",
+        "Tengo un buen dominio del idioma.",
+        "Ideal para perfeccionar tu inglés y trabajar en la precisión gramatical, pronunciación y expresiones idiomáticas. ¿Te gustaría conocer más sobre el contenido del curso y su duración?"
+    ],
 
     # Respuesta sobre contenido y duración para nivel Avanzado
-    "contenido_duracion_avanzado": {
-        "patron": re.compile(r"\b(sí, quiero saber más|quiero obtener más detalles)\b", re.IGNORECASE),
-        "respuesta": "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
-    },
+    "contenido_duracion_avanzado": [
+        "Sí, quiero saber más.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?",
+        "Me gustaría obtener más detalles.",
+        "Nuestros cursos tienen una duración de 3 meses con clases interactivas dos veces por semana. Además, contarás con material adicional y sesiones de práctica. ¿Te gustaría saber sobre los precios?"
+    ],
 
     # Pregunta sobre los precios del curso
-    "pregunta_precios": {
-        "patron": re.compile(r"\b(precio|cuánto cuesta|quiero conocer los precios)\b", re.IGNORECASE),
-        "respuesta": "El costo es de [Insertar precio] por mes. También ofrecemos descuentos si pagas por el curso completo desde el inicio. Aceptamos pagos con tarjeta, transferencia y algunos métodos de pago digital. ¿Te gustaría inscribirte ahora o necesitas más información?"
-    },
+    "pregunta_precios": [
+        "Quiero conocer los precios.",
+        "El costo es de [Insertar precio] por mes. También ofrecemos descuentos si pagas por el curso completo desde el inicio. Aceptamos pagos con tarjeta, transferencia y algunos métodos de pago digital. ¿Te gustaría inscribirte ahora o necesitas más información?",
+        "Dime cuánto cuesta.",
+        "El costo es de [Insertar precio] por mes. También ofrecemos descuentos si pagas por el curso completo desde el inicio. Aceptamos pagos con tarjeta, transferencia y algunos métodos de pago digital. ¿Te gustaría inscribirte ahora o necesitas más información?"
+    ],
 
     # Respuesta para inscripción
-    "respuesta_inscripcion": {
-        "patron": re.compile(r"\b(inscribirme|registrarme|estoy listo)\b", re.IGNORECASE),
-        "respuesta": "¡Genial! Para finalizar la inscripción, por favor ingresa tu nombre completo y un número de contacto o correo electrónico."
-    },
+    "respuesta_inscripcion": [
+        "Estoy listo para inscribirme.",
+        "¡Genial! Para finalizar la inscripción, por favor ingresa tu nombre completo y un número de contacto o correo electrónico.",
+        "Quiero registrarme.",
+        "¡Genial! Para finalizar la inscripción, por favor ingresa tu nombre completo y un número de contacto o correo electrónico."
+    ],
 
     # Confirmación de inscripción
-    "confirmacion_inscripcion": {
-        "patron": re.compile(r"\b(ya di mis datos|he enviado mis datos)\b", re.IGNORECASE),
-        "respuesta": "Gracias, [Nombre del usuario]. En breve recibirás un mensaje con los detalles para completar tu inscripción. ¡Nos emociona que te unas a nuestra comunidad de estudiantes de inglés! ¿Te gustaría que te mantengamos informado/a de más cursos y promociones?"
-    },
+    "confirmacion_inscripcion": [
+        "Ya he dado mis datos.",
+        "Gracias, [Nombre del usuario]. En breve recibirás un mensaje con los detalles para completar tu inscripción. ¡Nos emociona que te unas a nuestra comunidad de estudiantes de inglés! ¿Te gustaría que te mantengamos informado/a de más cursos y promociones?",
+        "He enviado mis datos.",
+        "Gracias, [Nombre del usuario]. En breve recibirás un mensaje con los detalles para completar tu inscripción. ¡Nos emociona que te unas a nuestra comunidad de estudiantes de inglés! ¿Te gustaría que te mantengamos informado/a de más cursos y promociones?"
+    ],
 
     # Respuesta de despedida
     "respuesta_despedida": {
-        "patron_si": re.compile(r"\b(sí, quiero estar informado)\b", re.IGNORECASE),
-        "patron_no": re.compile(r"\b(no necesito más información)\b", re.IGNORECASE),
-        "respuesta_si": "¡Listo! Te mantendremos informado/a sobre nuevos cursos y promociones. ¡Nos vemos pronto!",
-        "respuesta_no": "¡Gracias por tu tiempo! 😊 Si tienes alguna pregunta en el futuro, no dudes en escribirnos. ¡Éxito en tu aprendizaje de inglés!"
+        "no": [
+            "No necesito más información.",
+            "¡Gracias por tu tiempo! 😊 Si tienes alguna pregunta en el futuro, no dudes en escribirnos. ¡Éxito en tu aprendizaje de inglés!"
+        ],
+        "sí": [
+            "Sí, quiero estar informado.",
+            "¡Listo! Te mantendremos informado/a sobre nuevos cursos y promociones. ¡Nos vemos pronto!"
+        ]
     }
 }
-
 
 if not chat.storage.filter():  # Verifica si la base de datos está vacía
     trainer = ListTrainer(chat)
