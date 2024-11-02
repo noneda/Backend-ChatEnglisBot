@@ -1,5 +1,6 @@
 from django.db import models
-from .Bot import chat
+from .bot import chat
+import re
 
 # Create your models here.
 
@@ -9,7 +10,8 @@ class MessageBot(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.bot_response:
-            self.bot_response = chat.get_response(self.user_input).text
+            input_limpio = re.sub(r'[^a-zA-ZáéíóúÁÉÍÓÚñÑ0-9\s]', '', self.user_input)  
+            self.bot_response = chat.get_response(input_limpio.strip().lower()).text
         super().save(*args, **kwargs)
 
     def __str__(self):
